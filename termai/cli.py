@@ -5,19 +5,26 @@ import shlex
 import os
 import platform
 from typing import Optional, List
-import google.generativeai as genai
 from langchain_google_genai import ChatGoogleGenerativeAI
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 from rich.style import Style
 console = Console()
-from utils import detect_shell, validate_command
+from termai.utils import detect_shell, validate_command
+from dotenv import load_dotenv
 
 app = typer.Typer()
 
 # Initialize Gemini model
-os.environ["GOOGLE_API_KEY"] = ""
+load_dotenv()
+
+# Access the API key from the environment
+api_key = os.getenv("GOOGLE_API_KEY")
+
+# Optionally, you can still set it to `os.environ` if required by the library
+os.environ["GOOGLE_API_KEY"] = api_key
+
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
 class QueryChecker(BaseModel):
