@@ -15,17 +15,17 @@ from src.utils import detect_shell, validate_command
 from dotenv import load_dotenv
 from rich.table import Table
 app = typer.Typer()
+import google.generativeai as genai
 
-# Initialize Gemini model
-load_dotenv()
+dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
+load_dotenv(dotenv_path)  # Explicitly load the .env file
 
 # Access the API key from the environment
 api_key = os.getenv("GOOGLE_API_KEY")
 
-# Optionally, you can still set it to `os.environ` if required by the library
-os.environ["GOOGLE_API_KEY"] = api_key
+genai.configure(api_key=api_key)
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key = api_key)
 
 class QueryChecker(BaseModel):
     commands: List[str] = Field(
@@ -255,6 +255,8 @@ def run(
     
     try:
         command = get_shell_command(instruction)
+
+        print(command)
         
         if not command:
             typer.echo("Error: No command was generated", err=True)
@@ -272,6 +274,7 @@ def run(
             typer.echo("\nUse --execute or -e flag to run the command")
             
     except Exception as e:
+        print(e)
         typer.echo(f"Error: {str(e)}", err=True)
         raise typer.Exit(1)
 

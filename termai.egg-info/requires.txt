@@ -1,6 +1,0 @@
-typer[all]
-rich
-pydantic
-google-generativeai
-python-dotenv
-langchain-google-genai
