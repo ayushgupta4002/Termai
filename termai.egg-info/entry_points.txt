@@ -1,2 +1,2 @@
 [console_scripts]
-termai = termai.cli:app
+termai = src.cli:app

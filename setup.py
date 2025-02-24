@@ -14,7 +14,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "termai=termai.cli:app",  # Updated to use the package structure
+            "termai=src.cli:app",  # Updated to use the package structure
         ],
     },
     author="Your Name",

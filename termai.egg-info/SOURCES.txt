@@ -1,7 +1,7 @@
 setup.py
-termai/__init__.py
-termai/cli.py
-termai/utils.py
+src/__init__.py
+src/cli.py
+src/utils.py
 termai.egg-info/PKG-INFO
 termai.egg-info/SOURCES.txt
 termai.egg-info/dependency_links.txt
