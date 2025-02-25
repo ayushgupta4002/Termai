@@ -142,16 +142,24 @@ def get_shell_command(instruction: str) -> str:
     A **single valid shell command** or an **array of shell commands** for a {system_info} system.  
     DO NOT RETURN EMPTY ARRAY, NEVER.  
     """
-    response = llm.with_structured_output(QueryChecker).invoke(prompt)
-    
+    try:
+        response = llm.with_structured_output(QueryChecker).invoke(prompt)
+        cmds = response.commands
+         
+    except Exception as e:
+        console.print(f"[red]⚠️ Structured output parsing failed : trying manual parsing[/]")
+        response = llm.invoke(prompt)  # Fall back to normal response
+        commands = response.content.strip().split("\n")  # Try parsing manually
+        cmds = [cmd.strip() for cmd in commands if cmd.strip() and "```" not in cmd]
+
    
-    formatted_text = "\n".join([f"[bright_yellow]{idx}. {cmd}[/]" for idx, cmd in enumerate(response.commands, start=1)])
+    formatted_text = "\n".join([f"[bright_yellow]{idx}. {cmd}[/]" for idx, cmd in enumerate(cmds, start=1)])
 
     # Simulate a blur effect by using a dim/transparent-like background
     blur_style = Style(color="cyan", italic=True)  # Simulated blur effect
 
     console.print(Panel(Text.from_markup(formatted_text), title="Generated Commands", expand=False, style=blur_style))
-    return response.commands
+    return cmds
 
 
 def execute_command(commands: List[str], query: str) -> None:
@@ -256,7 +264,6 @@ def run(
     try:
         command = get_shell_command(instruction)
 
-        print(command)
         
         if not command:
             typer.echo("Error: No command was generated", err=True)

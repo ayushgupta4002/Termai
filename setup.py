@@ -1,21 +1,21 @@
-# setup.py
 from setuptools import setup, find_packages
 
 setup(
-    name="termai-cli",  # Changed from termai to avoid conflicts
-    version="0.6.0",
-    packages=find_packages(),
+    name="termai-cli",
+    version="0.9.0",
+    packages=find_packages(),  # Explicitly define package location
     install_requires=[
         "typer[all]",
         "rich",
         "pydantic",
         "google-generativeai",
         "python-dotenv",
-        "langchain-google-genai"
+        "langchain",
+        "langchain-google-genai",
     ],
     entry_points={
         "console_scripts": [
-            "termai=src.cli:app",
+            "termai=src.cli:app",  # Ensure cli.py is in `src` and has `app()`
         ],
     },
     author="Ayush Gupta",
@@ -32,8 +32,6 @@ setup(
         "Topic :: System :: Systems Administration",
         "Topic :: Utilities",
     ],
-    python_requires=">=3.6",
-    package_data={'': ['.env']},
+    python_requires=">=3.8",  # Ensure compatibility with dependencies
     include_package_data=True,
 )
-
