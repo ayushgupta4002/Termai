@@ -1,50 +1,88 @@
-# Project Overview
+# Termai - AI-Powered Command Line Assistant
 
-## Project Purpose
+## Overview
+Termai is a command-line tool specially designed for beginners,it translates natural language instructions into shell commands and executes them. It streamlines terminal interactions by automating command generation, reducing the need to memorize complex syntax.
 
-Termai is a command-line tool that translates natural language instructions into shell commands using the power of AI. It aims to make interacting with your terminal more intuitive and efficient by automating command generation and reducing the need to memorize complex syntax. Think of it as having an AI assistant that helps you navigate the command line.
+## Features
+- **Natural Language to Shell Command Conversion** – Converts plain English instructions into executable shell commands using the Gemini language model.
+- **Command Review** – Allows users to review generated commands before execution to ensure accuracy.
+- **Command Execution** – Runs commands directly and presents output in a user-friendly format.
+- **Shell Detection** – Identifies the active shell environment (bash, zsh, PowerShell, etc.) for compatibility.
+- **Command Validation** – Implements security measures to prevent execution of potentially harmful commands.
 
-## Key Features
+## Installation
 
-*   **Natural Language to Shell Command Conversion:** Translates your plain English instructions into executable shell commands using the Gemini language model.
-*   **Command Review:** Allows you to review the generated command(s) before execution, ensuring accuracy and preventing unintended actions.
-*   **Command Execution:** Executes the generated commands directly from the tool, capturing and displaying the output in a user-friendly format.
-*   **Shell Detection:** Automatically detects your shell environment (bash, zsh, powershell, etc.) to ensure compatibility.
-*   **Command Validation:** Implements basic security measures by validating commands against a list of potentially dangerous patterns.
+### Using pip (Recommended)
+```sh
+pip install termai-cli
+```
+
+### From Source
+```sh
+git clone https://github.com/ayushgupta4002/Termai
+cd termai
+pip install .
+```
+
+## Usage
+
+### Basic Usage
+```sh
+termai "Your instruction here" -e
+```
+
+### Example Commands
+#### Create a Next.js project and spin up a PostgreSQL container in Docker:
+```sh
+termai "Make a Next.js project and spin up a PostgreSQL image in Docker" -e
+```
+
+#### List all running Docker containers:
+```sh
+termai "Show all running Docker containers" -e
+```
+
+#### Find and delete all `.log` files in the current directory:
+```sh
+termai "Find and delete all .log files in this folder" -e
+```
 
 ## Architecture
-
-Termai's core functionality revolves around the `cli.py` script, which acts as the command-line interface. When you provide an instruction, `cli.py` uses the `get_shell_command` function to leverage the Gemini model (via `langchain_google_genai`) to generate the corresponding shell command(s). Before execution, the generated command is validated using the `validate_command` function from `utils.py` to prevent potentially harmful commands from running. Finally, the `execute_command` function executes the command(s), captures the output, and displays it to you. The `setup.py` file manages the project's dependencies and packaging.
-
-## Technical Stack
-
-*   **Python:** The primary programming language.
-*   **Typer:** Used for building the command-line interface.
-*   **Pydantic:** Used for data validation and settings management.
-*   **Rich:** Used for creating visually appealing output in the terminal.
-*   **google-generativeai & langchain-google-genai:** Used to interact with the Gemini language model.
-*   **python-dotenv:** Used for managing environment variables.
-*   **setuptools:** Used for packaging and distributing the project.
-*   **subprocess:** Used for executing shell commands.
-*   **Design Patterns:** Pydantic models are used for data validation.
-
-## Getting Started
-
-1.  **Clone the repository:** `git clone <repository_url>`
-2.  **Navigate to the project directory:** `cd termai`
-3.  **Install the dependencies:** `pip install .` (This uses `setup.py` to install the necessary packages)
-4.  **Configure your Gemini API key:** Set the `GOOGLE_API_KEY` environment variable. You can do this by creating a `.env` file in the project root and adding `GOOGLE_API_KEY=YOUR_API_KEY`.
-5.  **Run the tool:** `termai "Your instruction here" -e`
+Termai's core logic is in `cli.py`, which:
+1. Receives a natural language instruction.
+2. Uses `get_shell_command` (via `langchain_google_genai`) to generate shell commands.
+3. Validates commands using `validate_command` in `utils.py`.
+4. Executes commands securely and displays results.
 
 ## Project Structure
-
 ```
 termai/
 ├── src/
 │   ├── cli.py       # Command-line interface logic
-│   ├── utils.py     # Utility functions (command validation, shell detection)
+│   ├── utils.py     # Utility functions (validation, shell detection)
 │   └── __init__.py
-├── try.py         # Script for creating a new Next.js application (example)
-├── setup.py       # Build script for packaging and distribution
+├── setup.py       # Build script for packaging
 └── README.md
 ```
+
+## Dependencies
+- **Python** – Primary language
+- **Typer** – CLI framework
+- **Pydantic** – Data validation
+- **Rich** – Enhanced terminal output
+- **google-generativeai & langchain-google-genai** – AI model integration
+- **python-dotenv** – Environment variable management
+- **setuptools** – Packaging and distribution
+- **subprocess** – Command execution
+
+## Configuration
+Before using Termai, set up your Gemini API key:
+```sh
+echo "GOOGLE_API_KEY=your_api_key" > .env
+```
+
+## Contributing
+Contributions are welcome! Please submit a pull request or open an issue.
+
+## Support
+For any issues or feature requests, please open an issue on GitHub.
