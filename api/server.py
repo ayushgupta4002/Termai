@@ -4,21 +4,18 @@ from typing import Optional
 import uvicorn
 from pydantic import BaseModel, Field
 
-
 import os
 
 from typing import Optional, List
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from dotenv import load_dotenv
-import google.generativeai as genai
 
 dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
-load_dotenv(dotenv_path)  # Explicitly load the .env file
+load_dotenv()  # Explicitly load the .env file
 
 # Access the API key from the environment
 api_key = os.getenv("GOOGLE_API_KEY")
-genai.configure(api_key=api_key)
 
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key = api_key)
 

@@ -153,7 +153,7 @@ def get_shell_command(instruction: str) -> str:
     #     commands = response.content.strip().split("\n")  # Try parsing manually
     #     cmds = [cmd.strip() for cmd in commands if cmd.strip() and "```" not in cmd]
 
-    url = "http://localhost:8000/api/query"
+    url = "https://termai-cli.vercel.app/api/query"
 
     # Parameters
     params = {
@@ -263,7 +263,7 @@ def execute_command(commands: List[str], query: str) -> None:
                 - Explain the error clearly and provide potential fixes.
                 - Format the response in a short and concise way.
                 """
-                url = "http://localhost:8000/api/error"
+                url = "https://termai-cli.vercel.app/api/error"
 
                 # Parameters
                 params = {
