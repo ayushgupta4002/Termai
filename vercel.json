@@ -1,22 +1,15 @@
 {
     "devCommand": "uvicorn server:app --host 0.0.0.0 --port 3000",
-    "builds": [
-      {
-        "src": "api/server.py",
-        "use": "@vercel/python"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "api/server.py"
-      }
-    ],
     "functions": {
-        "api/**": {
-          "excludeFiles": "{*.cache,dist,public,app.src}/**"
+        "api/server.py": {
+            "runtime": "@vercel/python",
+            "excludeFiles": ["**/*.test.py", "**/__pycache__/**", "docs/**", "tests/**", "notebooks/**"]
         }
-      }
-    
-  }
-  
+    },
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "api/server.py"
+        }
+    ]
+}
