@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="termai-cli",
-    version="0.9.0",
+    version="1.0.0",
     packages=find_packages(),  # Explicitly define package location
     install_requires=[
         "typer[all]",
