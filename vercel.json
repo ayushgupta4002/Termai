@@ -3,7 +3,7 @@
     "functions": {
         "api/server.py": {
             "runtime": "@vercel/python",
-            "excludeFiles": ["**/*.test.py", "**/__pycache__/**", "docs/**", "tests/**", "notebooks/**"]
+            "excludeFiles": "**/*.test.py|**/__pycache__/**|docs/**|tests/**|notebooks/**"
         }
     },
     "routes": [
