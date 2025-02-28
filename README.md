@@ -37,10 +37,13 @@ termai "Your instruction here" -e
 termai "Make a Next.js project and spin up a PostgreSQL image in Docker" -e
 ```
 
+![image](https://github.com/user-attachments/assets/84428b25-4cee-4542-b547-75504907dae2)
+
 #### List all running Docker containers:
 ```sh
 termai "Show all running Docker containers" -e
 ```
+![image](https://github.com/user-attachments/assets/cde6badf-d2ad-4353-9639-fa6849841e02)
 
 #### Find and delete all `.log` files in the current directory:
 ```sh
