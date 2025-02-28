@@ -11,6 +11,12 @@
         "src": "/(.*)",
         "dest": "api/server.py"
       }
-    ]
+    ],
+    "functions": {
+        "api/**": {
+          "excludeFiles": "{*.cache,dist,public,app.src}/**"
+        }
+      }
+    
   }
   
