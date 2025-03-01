@@ -19,12 +19,11 @@ import google.generativeai as genai
 import requests
 
 dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
-load_dotenv(dotenv_path)  # Explicitly load the .env file
+load_dotenv(dotenv_path) 
 
-# Access the API key from the environment
+backend_url = "https://termai-cli.vercel.app"
 
 # genai.configure(api_key=api_key)
-
 # llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key = api_key)
 
 class QueryChecker(BaseModel):
@@ -153,7 +152,7 @@ def get_shell_command(instruction: str) -> str:
     #     commands = response.content.strip().split("\n")  # Try parsing manually
     #     cmds = [cmd.strip() for cmd in commands if cmd.strip() and "```" not in cmd]
 
-    url = "https://termai-cli.vercel.app/api/query"
+    url = f"{backend_url}/api/query"
 
     # Parameters
     params = {
@@ -263,7 +262,8 @@ def execute_command(commands: List[str], query: str) -> None:
                 - Explain the error clearly and provide potential fixes.
                 - Format the response in a short and concise way.
                 """
-                url = "https://termai-cli.vercel.app/api/error"
+                url = f"{backend_url}/api/error"
+
 
                 # Parameters
                 params = {
